@@ -1,0 +1,392 @@
+{
+  "info": {
+    "name": "Blacklist API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Añadir un email a la lista negra",
+      "description": "Permite agregar un email a la lista negra global de la organización. Requiere autenticación mediante token JWT.\n\nHeaders:\n- Authorization: Bearer {token JWT}\n- Content-Type: application/json\n\nCuerpo (JSON):\n- email (obligatorio)\n- app_uuid (obligatorio)\n- blocked_reason (opcional, máx. 255 caracteres)\n\nRespuestas:\n- 201: Email añadido\n- 400: Datos inválidos o email ya existente\n- 401: Falta o error en el token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"ejemplo@dominio.com\",\n    \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"blocked_reason\": \"Usuario reportado por spam\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/blacklists",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "blacklists"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Email añadido exitosamente",
+          "status": "CREATED",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"id\": 9,\n    \"email\": \"ejemplo@dominio.com\",\n    \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"blocked_reason\": \"Usuario reportado por spam\",\n    \"ip_address\": \"127.0.0.1\",\n    \"created_at\": \"2025-03-31T03:44:32.589768\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Caso: Añadir email ya existente",
+      "description": "Prueba de duplicado. Se espera 400 con mensaje de email ya existente.",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"ejemplo@dominio.com\",\n    \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"blocked_reason\": \"Usuario reportado por spam\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/blacklists",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "blacklists"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Email duplicado",
+          "status": "BAD REQUEST",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"message\": \"Email already blacklisted for this app\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Caso: Email inválido",
+      "description": "Prueba de email con formato inválido. Se espera 400 por validación.",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"correo-invalido\",\n    \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"blocked_reason\": \"Usuario reportado por spam\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/blacklists",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "blacklists"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Email inválido",
+          "status": "BAD REQUEST",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"message\": \"Invalid email format\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Caso: UUID inválido",
+      "description": "Prueba de UUID con formato inválido. Se espera 400 por validación.",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"ejemplo@dominio.com\",\n    \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000aa\",\n    \"blocked_reason\": \"Usuario reportado por spam\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/blacklists",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "blacklists"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "UUID inválido",
+          "status": "BAD REQUEST",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"message\": \"Invalid UUID format\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Caso: Añadir email sin autorización",
+      "description": "Prueba sin token. Se espera 401 Unauthorized.",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"ejemplo@dominio.com\",\n    \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"blocked_reason\": \"Usuario reportado por spam\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/blacklists",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "blacklists"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Falta de token en POST",
+          "status": "UNAUTHORIZED",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"msg\": \"Missing Authorization Header\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Verificar si un email está en la lista negra",
+      "description": "Consulta si el email está en la lista negra. Se espera 200 con el estado.",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/blacklists/ejemplo@dominio.com",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "blacklists",
+            "ejemplo@dominio.com"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Email encontrado",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"is_blacklisted\": true,\n    \"blocked_reason\": \"Usuario reportado por spam\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Caso: Verificar email no enlistado",
+      "description": "Consulta de email no listado. Se espera 200 indicando que no está en la lista.",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/blacklists/otrocorreo@dominio.com",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "blacklists",
+            "otrocorreo@dominio.com"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Email no listado",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"is_blacklisted\": false\n}"
+        }
+      ]
+    },
+    {
+      "name": "Caso: Verificar email sin autorización",
+      "description": "Consulta sin token. Se espera 401 Unauthorized.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/blacklists/otrocorreo@dominio.com",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "blacklists",
+            "otrocorreo@dominio.com"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Sin token en GET",
+          "status": "UNAUTHORIZED",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"msg\": \"Missing Authorization Header\"\n}"
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:5000"
+    },
+    {
+      "key": "jwt_token",
+      "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE3NDMzNTQ4NzcsImV4cCI6MTc3NDg5MDg5MiwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.eKKappNb0N-vJtrOnoOau-AnXvEN07Up_HspTt5pia8"
+	}
+  ]
+}
