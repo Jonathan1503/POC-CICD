@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
@@ -7,6 +8,7 @@ from api import BlacklistResource
 
 application = Flask(__name__)
 application.config.from_object("config")
+
 
 db.init_app(application)
 

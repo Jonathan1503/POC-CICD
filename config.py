@@ -1,7 +1,9 @@
 import os
 
+if os.environ.get("FLASK_ENV") == "testing":
+    ["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
 
-if 'RDS_DB_NAME' in os.environ:
+elif 'RDS_DB_NAME' in os.environ:
     
     SQLALCHEMY_DATABASE_URI = \
         'postgresql://{username}:{password}@{host}:{port}/{database}'.format(
@@ -15,7 +17,7 @@ else:
     DB_USER = os.getenv("DB_USER", "postgres")
     DB_PASSWORD = os.getenv("DB_PASSWORD", "postgres")
     DB_HOST = os.getenv("DB_HOST", "localhost")
-    DB_PORT = os.getenv("DB_PORT", "5432")
+    DB_PORT = os.getenv("DB_PORT", "5499")
     DB_NAME = os.getenv("DB_NAME", "postgres")
 
     SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"

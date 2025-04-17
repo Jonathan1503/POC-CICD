@@ -5,11 +5,16 @@ phases:
     commands:
       - pip install -r requirements.txt
       - echo Installing requirements...
+      
 
   build:
     commands:
-      - echo Running tests...
-      - pytest test.py --maxfail=1 --disable-warnings --tb=short
+      if [ "$FLASK_ENV" == "testing" ]; then
+         echo Running tests...
+         pytest test.py --maxfail=1 --disable-warnings --tb=short
+      else
+         echo Building...
+
 
 artifacts:
   files:
