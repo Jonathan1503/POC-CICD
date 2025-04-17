@@ -9,13 +9,14 @@ phases:
 
   build:
     commands:
+    - |
       if [ "$FLASK_ENV" == "testing" ]; then
-         echo Running tests...
-         pytest test.py --maxfail=1 --disable-warnings --tb=short
+         echo Running tests... ;
+         pytest test.py --maxfail=1 --disable-warnings --tb=short ;
       else
          echo Building...
       fi
-
+  
 
 artifacts:
   files:
