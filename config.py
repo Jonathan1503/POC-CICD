@@ -1,7 +1,7 @@
 import os
 
 if os.environ.get("FLASK_ENV") == "testing":
-    ["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
 
 elif 'RDS_DB_NAME' in os.environ:
     
