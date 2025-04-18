@@ -13,10 +13,13 @@ phases:
       if [ "$FLASK_ENV" == "testing" ]; then
          echo Running tests... ;
          pytest test.py --maxfail=1 --disable-warnings --tb=short ;
+         echo "Zipping application files..." ;
+         mkdir -p output ;
+         zip -r output/app.zip . -x "*.pyc" "__pycache__/*" ;
       else
          echo Building...
       fi
-  
+
 
 artifacts:
   files:
