@@ -111,3 +111,5 @@ Set the `jwt_token` variable in Postman with a valid token signed using the secr
 
 ## License
 Free to use for academic and demo purposes.
+
+#Scenario test
