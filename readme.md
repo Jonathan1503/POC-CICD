@@ -115,3 +115,4 @@ Free to use for academic and demo purposes.
 #Scenario test
 #Env var test #2
 #Test
+#AWS TEST
