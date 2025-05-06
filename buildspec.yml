@@ -12,7 +12,7 @@ phases:
       - docker build -t devops_app .
       - docker tag devops_app:latest 173961276629.dkr.ecr.us-east-1.amazonaws.com/devops_app:latest
       - echo Running tests...
-      - pytest test.py --maxfail=1 --disable-warnings --tb=short ;
+      - docker run --rm devops_app pytest test.py --maxfail=1 --disable-warnings --tb=short
   post_build:
     commands:
       - echo Build completed on `date`
