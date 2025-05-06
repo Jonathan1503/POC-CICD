@@ -7,7 +7,7 @@
           "Properties": {
             "TaskDefinition": "<TASK_DEFINITION>",
             "LoadBalancerInfo": {
-              "ContainerName": "Container-app-t5",
+              "ContainerName": "Container-app-devops",
               "ContainerPort": 5000
             }
           }

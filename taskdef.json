@@ -12,7 +12,7 @@
 
         "image": "<IMAGE1_NAME>",
         "essential": true,
-        "name": "Container-app-t5"
+        "name": "Container-app-devops"
       }
     ],
 
@@ -22,5 +22,5 @@
     "networkMode": "awsvpc",
     "cpu": "512",
     "memory": "1024",
-    "family": "Task-app-t5"
+    "family": "Task-app-devops"
   }
