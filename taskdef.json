@@ -1,0 +1,26 @@
+{
+    "executionRoleArn": "arn:aws:iam::173961276629:role/ecsTaskExecutionRole",
+    "containerDefinitions": [
+      {
+        "portMappings": [
+          {
+            "hostPort": 5000,
+            "protocol": "tcp",
+            "containerPort": 5000
+          }
+        ],
+
+        "image": "<IMAGE1_NAME>",
+        "essential": true,
+        "name": "Container-app-t5"
+      }
+    ],
+
+    "requiresCompatibilities": [
+      "FARGATE"
+    ],
+    "networkMode": "awsvpc",
+    "cpu": "512",
+    "memory": "1024",
+    "family": "Task-app-t5"
+  }

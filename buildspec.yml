@@ -3,25 +3,39 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - pip install -r requirements.txt
-      - echo Installing requirements...
-      
-
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 173961276629.dkr.ecr.us-east-1.amazonaws.com 
   build:
     commands:
-    - |
-      set -e
-      if [ "$FLASK_ENV" == "testing" ]; then
-         echo Running tests... ;
-         pytest test.py --maxfail=1 --disable-warnings --tb=short ;
-         echo "Zipping application files..." ;
-         mkdir -p output ;
-         zip -r output/app.zip . -x "*.pyc" "__pycache__/*" ;
-      else
-         echo Building...
-      fi
-
-
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -t devops_app .
+      - docker tag devops_app:latest 173961276629.dkr.ecr.us-east-1.amazonaws.com/devops_app:latest
+      - echo Running tests...
+      - pytest test.py --maxfail=1 --disable-warnings --tb=short ;
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 173961276629.dkr.ecr.us-east-1.amazonaws.com/devops_app:latest
+      - echo Writing Image Definitions file...
+      - printf '[{"name":"Container-app-python","imageUri":"173961276629.dkr.ecr.us-east-1.amazonaws.com/devops_app:latest"}]' > imagedefinitions.json
+      - printf '{"ImageURI":"173961276629.dkr.ecr.us-east-1.amazonaws.com/devops_app:latest"}' > imageDetail.json
+      - cat imagedefinitions.json 
+      
 artifacts:
   files:
     - '**/*'
+    - imagedefinitions.json
+    - imageDetail.json
+  secondary-artifacts:
+    DefinitionArtifact:
+      files:
+        - appspec.yaml
+        - taskdef.json
+    ImageArtifact:
+      files:
+        - imageDetail.json
+
+
+
