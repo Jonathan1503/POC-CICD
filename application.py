@@ -18,7 +18,7 @@ api = Api(application)
 api.add_resource(BlacklistResource, "/blacklists", "/blacklists/<string:email>")
 
 # Endpoint de Healthcheck
-@application.route("/health", methods=["GET"])
+@application.route("/", methods=["GET"])
 def healthcheck():
     return jsonify(status="ok"), 200
 
