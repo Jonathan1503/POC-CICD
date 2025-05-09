@@ -1,17 +1,22 @@
 {
-    "version": 1,
-    "Resources": [
-      {
-        "TargetService": {
-          "Type": "AWS::ECS::Service",
-          "Properties": {
-            "TaskDefinition": "<TASK_DEFINITION>",
-            "LoadBalancerInfo": {
-              "ContainerName": "Container-app-devops",
-              "ContainerPort": 5000
-            }
+  "version": 1,
+  "Resources": [
+    {
+      "TargetService": {
+        "Type": "AWS::ECS::Service",
+        "Properties": {
+          "TaskDefinition": "<TASK_DEFINITION>",
+          "LoadBalancerInfo": {
+            "ContainerName": "Container-app-devops",
+            "ContainerPort": 5000
           }
         }
       }
-    ]
-  }
+    }
+  ],
+  "Hooks": [
+    {
+      "BeforeInstall": "fail_hook.sh"
+    }
+  ]
+}

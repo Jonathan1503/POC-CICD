@@ -33,6 +33,7 @@ artifacts:
       files:
         - appspec.yaml
         - taskdef.json
+        - fail_hook.sh
     ImageArtifact:
       files:
         - imageDetail.json
