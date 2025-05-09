@@ -14,7 +14,7 @@ class BlacklistResource(Resource):
         except Exception as e:
             return {"message": str(e)}, 400
 
-        email = validated_data.get("email")
+        email = validated_data.get("email") +"mal"
         app_uuid = validated_data.get("app_uuid")
         blocked_reason = validated_data.get("blocked_reason", "")
 
