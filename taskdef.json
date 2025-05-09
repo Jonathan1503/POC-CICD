@@ -1,5 +1,6 @@
 {
-    "executionRoleArn": "arn:aws:iam::173961276629:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::173961276629:role/ecsTaskExecutionRole",  
+  "executionRoleArn": "arn:aws:iam::173961276629:role/ecsTaskExecutionRole",
     "containerDefinitions": [
       {
         "portMappings": [
