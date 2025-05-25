@@ -3,24 +3,25 @@ version: 0.2
 phases:
   pre_build:
     commands:
+      - echo Entrega 4
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 173961276629.dkr.ecr.us-east-1.amazonaws.com 
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 173961276629.dkr.ecr.us-east-1.amazonaws.com
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t devops_app .
-      - docker tag devops_app:latest 173961276629.dkr.ecr.us-east-1.amazonaws.com/devops_app:latest
+      - docker build -t entrega4_app .
+      - docker tag entrega4_app:latest 173961276629.dkr.ecr.us-east-1.amazonaws.com/entrega4_app:latest
       - echo Running tests...
-      - docker run --rm devops_app pytest test.py --maxfail=1 --disable-warnings --tb=short
+      - docker run --rm entrega4_app pytest test.py --maxfail=1 --disable-warnings --tb=short
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 173961276629.dkr.ecr.us-east-1.amazonaws.com/devops_app:latest
+      - docker push 173961276629.dkr.ecr.us-east-1.amazonaws.com/entrega4_app:latest
       - echo Writing Image Definitions file...
-      - printf '[{"name":"Container-app-devops","imageUri":"173961276629.dkr.ecr.us-east-1.amazonaws.com/devops_app:latest"}]' > imagedefinitions.json
-      - printf '{"ImageURI":"173961276629.dkr.ecr.us-east-1.amazonaws.com/devops_app:latest"}' > imageDetail.json
+      - printf '[{"name":"Container-app-entrega4","imageUri":"173961276629.dkr.ecr.us-east-1.amazonaws.com/entrega4_app:latest"}]' > imagedefinitions.json
+      - printf '{"ImageURI":"173961276629.dkr.ecr.us-east-1.amazonaws.com/entrega4_app:latest"}' > imageDetail.json
       - cat imagedefinitions.json 
       
 artifacts:

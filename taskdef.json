@@ -1,5 +1,4 @@
-{
-  "taskRoleArn": "arn:aws:iam::173961276629:role/ecsTaskExecutionRole",  
+{  
   "executionRoleArn": "arn:aws:iam::173961276629:role/ecsTaskExecutionRole",
     "containerDefinitions": [
       {
@@ -13,7 +12,7 @@
 
         "image": "<IMAGE1_NAME>",
         "essential": true,
-        "name": "Container-app-devops"
+        "name": "Container-app-entrega4"
       }
     ],
 
@@ -23,5 +22,5 @@
     "networkMode": "awsvpc",
     "cpu": "512",
     "memory": "1024",
-    "family": "Task-app-devops"
+    "family": "Task-app-entrega4"
   }

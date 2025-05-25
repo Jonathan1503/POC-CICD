@@ -1,3 +1,4 @@
+import traceback
 from flask import request
 from flask_restful import Resource
 from models import Blacklist
@@ -12,6 +13,8 @@ class BlacklistResource(Resource):
         try:
             validated_data = blacklist_input_schema.load(data)
         except Exception as e:
+            print(str(e))
+            print(str(traceback.print_exc()))
             return {"message": str(e)}, 400
 
         email = validated_data.get("email") 
