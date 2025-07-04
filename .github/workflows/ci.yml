@@ -32,7 +32,8 @@ jobs:
     - name: Empaquetar aplicación Flask
       run: |
         mkdir -p deploy
-        cp -r * deploy/
+        shopt -s extglob
+        cp -r !(deploy) deploy/
         cd deploy
         zip -r flask-app.zip .
 
