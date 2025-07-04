@@ -4,16 +4,6 @@ from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from database import db
 from api import BlacklistResource
-import newrelic.agent
-import logging
-newrelic.agent.initialize()
-
-# Set up logging
-logger = logging.getLogger("Basic Logger")
-logger.setLevel(logging.INFO)
-stream_handler = logging.StreamHandler()
-stream_handler.setLevel(logging.INFO)
-logger.addHandler(stream_handler)
 
 
 

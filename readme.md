@@ -16,9 +16,9 @@ This microservice allows centralized management of a global email blacklist acro
 - Python 3.8+
 - Flask (latest)
 - Flask-RESTful, Flask-JWT-Extended
-- Flask-SQLAlchemy + PostgreSQL
+- Flask-SQLAlchemy
 - Marshmallow for serialization/validation
-- Docker (only for PostgreSQL)
+
 
 ---
 
