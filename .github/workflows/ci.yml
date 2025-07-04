@@ -32,11 +32,10 @@ jobs:
     - name: Empaquetar aplicación Flask
       run: |
         mkdir -p deploy
-        cp * deploy/
-        cp requirements.txt deploy/
+        cp -r * deploy/
         cd deploy
         zip -r flask-app.zip .
-        
+
     - name: Subir artefacto de despliegue
       uses: actions/upload-artifact@v4
       with:
