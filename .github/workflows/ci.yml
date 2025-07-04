@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar el repositorio
+      uses: actions/checkout@v4
+
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+
+    - name: Ejecutar pruebas
+      run: |
+        pytest test.py --maxfail=1 --disable-warnings --tb=short
+
+    - name: Subir artefactos de pruebas
+      uses: actions/upload-artifact@v4
+      with:
+        name: resultados-de-pruebas
+        path: |
+          results.xml
+          htmlcov/
