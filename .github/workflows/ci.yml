@@ -29,10 +29,17 @@ jobs:
       run: |
         pytest test.py --maxfail=1 --disable-warnings --tb=short
 
-    - name: Subir artefactos de pruebas
+    - name: Empaquetar aplicación Flask
+      run: |
+        mkdir -p deploy
+        cp * deploy/
+        cp requirements.txt deploy/
+        cd deploy
+        zip -r flask-app.zip .
+        
+    - name: Subir artefacto de despliegue
       uses: actions/upload-artifact@v4
       with:
-        name: resultados-de-pruebas
-        path: |
-          results.xml
-          htmlcov/
+        name: flask-app-deployable
+        path: deploy/flask-app.zip
+
