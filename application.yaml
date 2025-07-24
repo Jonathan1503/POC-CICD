@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Jonathan1503/POC-CICD
+    repoURL: https://github.com/Jonathan1503/k8s-cicd
     path: k8s
     targetRevision: HEAD
   destination:
