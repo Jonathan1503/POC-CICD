@@ -1,13 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: democid
+  name: democicd
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/Jonathan1503/k8s-cicd
-    path: k8s
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
