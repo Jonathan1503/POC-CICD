@@ -1,4 +1,4 @@
-FROM alpine:3.14 as build
+FROM alpine:3.14
 
 RUN apk add py3-pip \
     && pip install --upgrade pip
