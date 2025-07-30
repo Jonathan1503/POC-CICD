@@ -22,7 +22,7 @@ api.add_resource(BlacklistResource, "/blacklists", "/blacklists/<string:email>")
 # Endpoint de Healthcheck
 @application.route("/")
 def index():
-    return jsonify(status="Gitrunner test 2"), 200
+    return jsonify(status="Ok"), 200
 
 with application.app_context():
     db.create_all()
