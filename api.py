@@ -17,7 +17,7 @@ class BlacklistResource(Resource):
             print(str(traceback.print_exc()))
             return {"message": str(e)}, 400
 
-        email = validated_data.get("email") + "ffff"
+        email = validated_data.get("email") 
         app_uuid = validated_data.get("app_uuid")
         blocked_reason = validated_data.get("blocked_reason", "")
 
